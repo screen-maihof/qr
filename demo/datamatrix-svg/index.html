@@ -152,47 +152,26 @@
 
 <table><tr><th>
 
-<label for="in1">Dimension</label></th><td><input
+<label for="in1">Height or Dim</label></th><td><input
 	id="in1" type="number" value="256" min="256" max="61440" step="64"/></td></tr><tr><th>
 
-<label for="in2">Padding</label></th><td><input
-	id="in2" type="number" value="4" min="0" max="10"/></td></tr><tr><th>
+<label for="in2">Rectangle</label></th><td><input
+	id="in2" type="checkbox"/></td></tr><tr><th>
 
-<label for="in3">PATTERN</label></th><td><select
-	id="in3">
-	<option value="-1" selected="selected">(AUTO)</option>
-	<option value="0" >TYPE 0</option>
-	<option value="1" >TYPE 1</option>
-	<option value="2" >TYPE 2</option>
-	<option value="3" >TYPE 3</option>
-	<option value="4" >TYPE 4</option>
-	<option value="5" >TYPE 5</option>
-	<option value="6" >TYPE 6</option>
-	<option value="7" >TYPE 7</option>
-</select></td></tr><tr><th>
+<label for="in3">Padding</label></th><td><input
+	id="in3" type="number" value="0" min="0" max="10"/></td></tr><tr><th>
 
-<label for="in4">ECL</label></th><td><select
-	id="in4" size="4">
-	<option value="L">LOW</option>
-	<option value="M" selected="selected">MEDIUM</option>
-	<option value="Q">QUARTILE</option>
-	<option value="H">HIGH</option>
-</select></td></tr><tr><th>
+<label for="in4">Faces</label></th><td><input
+	id="in4" type="color" value="#000000"/></td></tr><tr><th>
 
-<label for="in5">Boost ECL</label></th><td><input
-	id="in5" type="checkbox" checked="checked"/></td></tr><tr><th>
+<label for="in5">Background color</label></th><td><input
+	id="in5" type="color" value="#f2f4f8"/></td></tr><tr><th>
 
-<label for="in6">Faces</label></th><td><input
-	id="in6" type="color" value="#000000"/></td></tr><tr><th>
+<label for="in6">Background opaque</label></th><td><input
+	id="in6" type="checkbox"/></td></tr><tr><th>
 
-<label for="in7">Background color</label></th><td><input
-	id="in7" type="color" value="#f2f4f8"/></td></tr><tr><th>
-
-<label for="in8">Background opaque</label></th><td><input
-	id="in8" type="checkbox"/></td></tr><tr><th>
-
-<label for="in9">Optimized SVG SIZE</label></th><td><input
-	id="in9" type="checkbox" checked="checked"/></td></tr></table>
+<label for="in7">Optimized SVG SIZE</label></th><td><input
+	id="in7" type="checkbox" checked="checked"/></td></tr></table>
 
 </div>
 
@@ -227,8 +206,6 @@
 		in5 = document.getElementById('in5'),
 		in6 = document.getElementById('in6'),
 		in7 = document.getElementById('in7'),
-		in8 = document.getElementById('in8'),
-		in9 = document.getElementById('in9'),
 
 		current = function( o ) {
 
@@ -256,10 +233,8 @@
 
 				/* beautify: remove default values */
 				if( 256  == d.dim ) delete d.dim;
-				if(   4  == d.pad ) delete d.pad;
-				if(  -1  == d.mtx ) delete d.mtx;
-				if(  'M' == d.ecl ) delete d.ecl;
-				if(   1  == d.ecb ) delete d.ecb;
+				if(   0  == d.pad ) delete d.pad;
+				if(   0  == d.rct  ) delete d.rct;
 				if(   0  == d.pal[ 1 ] ) delete d.pal.pop();
 				if(   d.pal[ 0 ] == '#000000' && !d.pal[ 1 ] ) delete d.pal;
 				if(   0  == d.vrb ) delete d.vrb;
@@ -282,7 +257,6 @@
 					c++;
 				}
 
-				//if( 1 == c )	else
 				res.innerHTML = '<b class="obj"><b>DATAMatrix</b>(</b>'
 					+ (( 1 == c )
 					? '<i class="txt">"<i>' + d.msg + '</i>"</i>'
@@ -378,19 +352,17 @@
 
 		in1.onchange =
 		in2.onchange =
-		in3.onchange =
+		in3.onchange = 
 		in4.onchange =
-		in5.onchange =
 		in6.onchange =
-		in8.onchange =
-		in9.onchange = function() {
+		in7.onchange = function() {
 
 					box.update();
 			};
 
-		in7.onchange = function() {
+		in5.onchange = function() {
 
-					in8.checked = true;
+					in6.checked = true;
 					box.update();
 			};
 
@@ -412,12 +384,10 @@
 
 						 msg  :   txt.value
 						,dim  :   in1.value | 0
-						,pad  :   in2.value | 0
-						,mtx  :   in3.value
-						,ecl  :   in4.value
-						,ecb  :   in5.checked | 0
-						,pal  : [ in6.value, in8.checked | 0 && in7.value ]
-						,vrb  : ( in9.checked ) ? 0 : 1
+						,rct  :   in2.checked | 0
+						,pad  :   in3.value | 0
+						,pal  : [ in4.value, in6.checked | 0 && in5.value ]
+						,vrb  : ( in7.checked ) ? 0 : 1
 					};
 
 					box.appendChild( DATAMatrix( data ) )
@@ -437,7 +407,7 @@
 				,'https://github.com/datalog/datamatrix-svg'
 				,'Pure javascript Datamatrix generator'
 				,'Type here...'
-				,'This is datamatrix'
+				,'This is Data Matrix'
 				,'Abyssus abyssum invocat'
 				,'Amor non est medicabilis herbis'
 				,'Nulla dies sine linea'
