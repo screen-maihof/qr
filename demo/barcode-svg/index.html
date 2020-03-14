@@ -197,7 +197,7 @@
 	*/
 
 		var
-		qrc = document.getElementById('box'),
+		box = document.getElementById('box'),
 		txt = document.getElementById('msg'),
 		res = document.getElementById('res'),
 
@@ -369,40 +369,40 @@
 		in7.onchange =
 		in9.onchange = function() {
 
-					qrc.update();
+					box.update();
 			};
 
 		in2.onchange = function() {
 
 					in1.value = 0;
-					qrc.update();
+					box.update();
 			};
 
 		in4.onchange = function() {
 
 					in3.value = 0;
-					qrc.update();
+					box.update();
 			};
 
 		in8.onchange = function() {
 
 					in9.checked = true;
-					qrc.update();
+					box.update();
 			};
 
 		txt.onkeyup = function() {
 
 					if( updated( txt ) ) return;
 
-					qrc.update();
+					box.update();
 					current( txt );
 			};
 
-		qrc.update = function() {
+		box.update = function() {
 
 					/* auto calc probably will be added */
 
-					clear( qrc );
+					clear( box );
 
 					var
 					time = new Date(),
@@ -414,11 +414,11 @@
 						,pal  : [ in7.value, in9.checked | 0 && in8.value ]
 					};
 
-					qrc.appendChild( BARCode( data ) )
+					box.appendChild( BARCode( data ) )
 
 						.onclick = function() {
 
-							return download( qrc.innerHTML );
+							return download( box.innerHTML );
 						};
 
 					console.log('Barcode generation time: ' + ( new Date() - time ) + ' ms');
@@ -440,7 +440,7 @@
 			][ ( Math.random() * 10 ) | 0 ];
 
 		current( txt );
-		qrc.update();
+		box.update();
 		txt.focus();
 	})();
 

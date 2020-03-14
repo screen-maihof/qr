@@ -212,7 +212,7 @@
 	*/
 
 		var
-		qrc = document.getElementById('box'),
+		box = document.getElementById('box'),
 		txt = document.getElementById('msg'),
 		res = document.getElementById('res'),
 
@@ -385,26 +385,26 @@
 		in8.onchange =
 		in9.onchange = function() {
 
-					qrc.update();
+					box.update();
 			};
 
 		in7.onchange = function() {
 
 					in8.checked = true;
-					qrc.update();
+					box.update();
 			};
 
 		txt.onkeyup = function() {
 
 					if( updated( txt ) ) return;
 
-					qrc.update();
+					box.update();
 					current( txt );
 			};
 
-		qrc.update = function() {
+		box.update = function() {
 
-					clear( qrc );
+					clear( box );
 
 					var
 					time = new Date(),
@@ -420,11 +420,11 @@
 						,vrb  : ( in9.checked ) ? 0 : 1
 					};
 
-					qrc.appendChild( QRCode( data ) )
+					box.appendChild( QRCode( data ) )
 
 						.onclick = function() {
 
-							return download( qrc.innerHTML );
+							return download( box.innerHTML );
 						};
 
 					console.log('QRCode generation time: ' + ( new Date() - time ) + ' ms');
@@ -446,7 +446,7 @@
 			][ ( Math.random() * 10 ) | 0 ];
 
 		current( txt );
-		qrc.update();
+		box.update();
 		txt.focus();
 	})();
 
